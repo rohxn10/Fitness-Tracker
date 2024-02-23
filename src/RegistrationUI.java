@@ -83,7 +83,7 @@ public class RegistrationUI extends JFrame {
         User newUser = new User(username, password, email, age, weight, height);
 
         // Add the new user to the user database
-        userDatabase.addUser(newUser);
+        UserDatabase.addUser(newUser);
 
         // Display registration confirmation message
         JOptionPane.showMessageDialog(this, "Registration successful!\nWelcome, " + newUser.getUsername() + "!");

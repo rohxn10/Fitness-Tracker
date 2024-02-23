@@ -10,16 +10,19 @@ class User {
     private int age;
     private double weight;
     private double height;
+     private Statistics statistics; // Add Statistics field
 
-    public User(String username, String password, String email, int age, double weight, double height) {
+    public User(String username, String password, String email, int age, double weight, double height, \) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.age = age;
         this.weight = weight;
         this.height = height;
+        this.statistics = new Statistics(0, 0, 0, 0);
         System.out.println("User created: " + username);
     }
+
 
     public String getUsername() {
         return username;
@@ -67,5 +70,13 @@ class User {
 
     public void setHeight(double height) {
         this.height = height;
+    }
+
+    public Statistics getStatistics() {
+        return statistics;
+    }
+
+    public void setStatistics(Statistics statistics) {
+        this.statistics = statistics;
     }
 }

@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDatabase {
+public class UserDatabase{
     private List<User> users;
 
     public UserDatabase() {

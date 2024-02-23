@@ -4,24 +4,31 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
-import javax.imageio.ImageIO;
-import java.io.File;
-import java.io.IOException;
 
 public class HomePageUI extends JFrame {
 
-    
     public HomePageUI(String username) {
         setTitle("Fitness Tracker - Home Page");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(800, 600); // Set a larger window size
         setLayout(new BorderLayout());
-        
-        
+
+        JPanel contentPane = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                // Set background color
+                g.setColor(new Color(240, 0, 240)); // Light gray color
+                g.fillRect(0, 0, getWidth(), getHeight());
+            }
+        };
+        contentPane.setLayout(new BorderLayout());
+        add(contentPane, BorderLayout.CENTER);
+
         JLabel welcomeLabel = new JLabel("Welcome, " + username + "!");
         welcomeLabel.setHorizontalAlignment(SwingConstants.CENTER);
         welcomeLabel.setFont(new Font("Arial", Font.BOLD, 24)); // Increase font size
-        add(welcomeLabel, BorderLayout.CENTER);
+        contentPane.add(welcomeLabel, BorderLayout.CENTER);
 
         JPanel buttonPanel = new JPanel(new GridLayout(2, 2, 10, 10));
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
@@ -30,60 +37,46 @@ public class HomePageUI extends JFrame {
         statisticsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Add action to check statistics
-                JOptionPane.showMessageDialog(null, "Checking statistics...");
+                // Open StatisticsUI
+                openStatisticsUI();
             }
         });
         buttonPanel.add(statisticsButton);
 
         JButton activitiesButton = new JButton("Check Activities");
-        activitiesButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Add action to open ActivityUI
-                openActivityUI();
-            }
-        });
+        activitiesButton.addActionListener(e -> openActivityUI());
         buttonPanel.add(activitiesButton);
 
         JButton setGoalsButton = new JButton("Set Goals");
-        setGoalsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Add action to set goals
-                JOptionPane.showMessageDialog(null, "Setting goals...");
-            }
-        });
+        setGoalsButton.addActionListener(e -> JOptionPane.showMessageDialog(null, "Setting goals..."));
         buttonPanel.add(setGoalsButton);
 
         JButton historyButton = new JButton("Check History");
-        historyButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Add action to check history
-                JOptionPane.showMessageDialog(null, "Checking history...");
-            }
-        });
+        historyButton.addActionListener(e -> JOptionPane.showMessageDialog(null, "Checking history..."));
         buttonPanel.add(historyButton);
 
-        add(buttonPanel, BorderLayout.SOUTH);
+        contentPane.add(buttonPanel, BorderLayout.SOUTH);
 
         JButton logoutButton = new JButton("Logout");
-        logoutButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                logout();
-            }
-        });
-        add(logoutButton, BorderLayout.NORTH);
+        logoutButton.addActionListener(e -> logout());
+        logoutButton.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10)); // Add padding
+        JPanel logoutPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        logoutPanel.add(logoutButton);
+        contentPane.add(logoutPanel, BorderLayout.NORTH);
 
         setVisible(true);
     }
 
     private void logout() {
-        // You can perform logout operations here, such as closing the current window and returning to the login page.
         dispose(); // Close the home page window
         // Add your code here to return to the login page
+    }
+
+    private void openStatisticsUI() {
+        // Create a Statistics object (for demo purpose)
+        Statistics statistics = new Statistics(120, 500.5, 7.5, 2500);
+        // Open StatisticsUI
+        SwingUtilities.invokeLater(() -> new StatisticsUI(statistics));
     }
 
     private void openActivityUI() {
